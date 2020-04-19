@@ -13,8 +13,8 @@ def create_app(test_config=None):
     CORS(app)
 
     setup_db(app)
-    db.create_all()
-    migrate = Migrate(app, db)
+    # db.create_all()
+    # migrate = Migrate(app, db)
 
     @app.after_request
     def after_request(response):

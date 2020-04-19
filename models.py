@@ -1,7 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy 
 import os 
 
-SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+
+SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URI']
 db = SQLAlchemy()
 
 
