@@ -1,0 +1,238 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.1
+-- Dumped by pg_dump version 12.1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: Actor; Type: TABLE; Schema: public; Owner: bfeng014
+--
+
+CREATE TABLE public."Actor" (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    age integer NOT NULL,
+    gender character varying NOT NULL
+);
+
+
+ALTER TABLE public."Actor" OWNER TO bfeng014;
+
+--
+-- Name: Actor_id_seq; Type: SEQUENCE; Schema: public; Owner: bfeng014
+--
+
+CREATE SEQUENCE public."Actor_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Actor_id_seq" OWNER TO bfeng014;
+
+--
+-- Name: Actor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bfeng014
+--
+
+ALTER SEQUENCE public."Actor_id_seq" OWNED BY public."Actor".id;
+
+
+--
+-- Name: Movie; Type: TABLE; Schema: public; Owner: bfeng014
+--
+
+CREATE TABLE public."Movie" (
+    id integer NOT NULL,
+    title character varying NOT NULL,
+    release_data timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public."Movie" OWNER TO bfeng014;
+
+--
+-- Name: Movie_id_seq; Type: SEQUENCE; Schema: public; Owner: bfeng014
+--
+
+CREATE SEQUENCE public."Movie_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Movie_id_seq" OWNER TO bfeng014;
+
+--
+-- Name: Movie_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bfeng014
+--
+
+ALTER SEQUENCE public."Movie_id_seq" OWNED BY public."Movie".id;
+
+
+--
+-- Name: Movie_shows; Type: TABLE; Schema: public; Owner: bfeng014
+--
+
+CREATE TABLE public."Movie_shows" (
+    movie_id integer NOT NULL,
+    actor_id integer NOT NULL
+);
+
+
+ALTER TABLE public."Movie_shows" OWNER TO bfeng014;
+
+--
+-- Name: alembic_version; Type: TABLE; Schema: public; Owner: bfeng014
+--
+
+CREATE TABLE public.alembic_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE public.alembic_version OWNER TO bfeng014;
+
+--
+-- Name: Actor id; Type: DEFAULT; Schema: public; Owner: bfeng014
+--
+
+ALTER TABLE ONLY public."Actor" ALTER COLUMN id SET DEFAULT nextval('public."Actor_id_seq"'::regclass);
+
+
+--
+-- Name: Movie id; Type: DEFAULT; Schema: public; Owner: bfeng014
+--
+
+ALTER TABLE ONLY public."Movie" ALTER COLUMN id SET DEFAULT nextval('public."Movie_id_seq"'::regclass);
+
+
+--
+-- Data for Name: Actor; Type: TABLE DATA; Schema: public; Owner: bfeng014
+--
+
+COPY public."Actor" (id, name, age, gender) FROM stdin;
+2	Vanessa Kirby	32	female
+1	Jason Statham	50	male
+3	Dwayne Johnson	48	male
+\.
+
+
+--
+-- Data for Name: Movie; Type: TABLE DATA; Schema: public; Owner: bfeng014
+--
+
+COPY public."Movie" (id, title, release_data) FROM stdin;
+2	Mission: Impossible - Fallout	2018-08-31 00:00:00
+1	Speed and passion 9 special action	2020-01-01 00:00:00
+3	Lion King	2019-07-12 00:00:00
+\.
+
+
+--
+-- Data for Name: Movie_shows; Type: TABLE DATA; Schema: public; Owner: bfeng014
+--
+
+COPY public."Movie_shows" (movie_id, actor_id) FROM stdin;
+1	1
+2	2
+1	2
+\.
+
+
+--
+-- Data for Name: alembic_version; Type: TABLE DATA; Schema: public; Owner: bfeng014
+--
+
+COPY public.alembic_version (version_num) FROM stdin;
+d5be6c366e0d
+\.
+
+
+--
+-- Name: Actor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bfeng014
+--
+
+SELECT pg_catalog.setval('public."Actor_id_seq"', 7, true);
+
+
+--
+-- Name: Movie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bfeng014
+--
+
+SELECT pg_catalog.setval('public."Movie_id_seq"', 8, true);
+
+
+--
+-- Name: Actor Actor_pkey; Type: CONSTRAINT; Schema: public; Owner: bfeng014
+--
+
+ALTER TABLE ONLY public."Actor"
+    ADD CONSTRAINT "Actor_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Movie Movie_pkey; Type: CONSTRAINT; Schema: public; Owner: bfeng014
+--
+
+ALTER TABLE ONLY public."Movie"
+    ADD CONSTRAINT "Movie_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Movie_shows Movie_shows_pkey; Type: CONSTRAINT; Schema: public; Owner: bfeng014
+--
+
+ALTER TABLE ONLY public."Movie_shows"
+    ADD CONSTRAINT "Movie_shows_pkey" PRIMARY KEY (movie_id, actor_id);
+
+
+--
+-- Name: alembic_version alembic_version_pkc; Type: CONSTRAINT; Schema: public; Owner: bfeng014
+--
+
+ALTER TABLE ONLY public.alembic_version
+    ADD CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- Name: Movie_shows Movie_shows_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bfeng014
+--
+
+ALTER TABLE ONLY public."Movie_shows"
+    ADD CONSTRAINT "Movie_shows_actor_id_fkey" FOREIGN KEY (actor_id) REFERENCES public."Actor"(id);
+
+
+--
+-- Name: Movie_shows Movie_shows_movie_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bfeng014
+--
+
+ALTER TABLE ONLY public."Movie_shows"
+    ADD CONSTRAINT "Movie_shows_movie_id_fkey" FOREIGN KEY (movie_id) REFERENCES public."Movie"(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

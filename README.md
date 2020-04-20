@@ -66,32 +66,36 @@ Tokens
 GET '/actors'
 - Fetches a list of actors in which each element is a dictionary including the information of each actor. 
 - Request Arguments: None
-- Returns: A list with all the actors in database, where each object with several key-avalue pairs including the id:integer, name:string, the age:integer and the gender:string of the actor. 
-[{
-    "id": 1,
-    "name": "Jason Statham",
-    "age": 53,
-    "gender": "male"
-},{
-    "id": 2,
-    "name": "Vanessa Kirby",
-    "age": 32,
-    "gender": "female"
-}]
+- Returns: An objection with a single key value pair, the key is "actors" and the value is a list with all the actors in database, where each object with several key-avalue pairs including the id:integer, name:string, the age:integer and the gender:string of the actor. 
+{"acotrs":
+    [{
+        "id": 1,
+        "name": "Jason Statham",
+        "age": 53,
+        "gender": "male"
+    },{
+        "id": 2,
+        "name": "Vanessa Kirby",
+        "age": 32,
+        "gender": "female"
+    }]
+}
 
 GET '/movies'
 - Fetches a list of movies in which each element is a dictionary including the information of each movie. 
 - Request Arguments: None
-- Returns: A list with all the movies in database, where each object with several key-avalue pairs including the id:integer, title:string and the release data:string("MM-DD-YY"). 
-[{
-    "id": 1,
-    "title": "Speed and passion: special action",
-    "release_data": "08-02-2019"
-},{
-    "id": 2,
-    "title": "Mission: Impossible - Fallout",
-    "release_data": "08-31-2018"
-}]
+- Returns: An objection with a single key value pair, the key is "actors" and the value is a list with all the movies in database, where each object with several key-avalue pairs including the id:integer, title:string and the release data:string("MM-DD-YY"). 
+{"movies":
+    [{
+        "id": 1,
+        "title": "Speed and passion: special action",
+        "release_data": "08-02-2019"
+    },{
+        "id": 2,
+        "title": "Mission: Impossible - Fallout",
+        "release_data": "08-31-2018"
+    }]
+}
 
 POST '/actors'
 - Create a new actor and store it in the database . 
@@ -160,7 +164,7 @@ PATCH '/movies/<movie_id>'
 {'success': True}
 
 ## Testing
-To run the tests, run
+To run the tests, navigate to the project directory and run
 ```
 dropdb castingAgency
 createdb castingAgency

@@ -5,6 +5,7 @@ from flask_cors import CORS
 from models import setup_db, db, Actor, Movie
 from flask_sqlalchemy import SQLAlchemy
 from auth import requires_auth, AuthError
+import traceback
 
 
 def create_app(test_config=None):
